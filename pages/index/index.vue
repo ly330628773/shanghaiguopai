@@ -1,20 +1,31 @@
 <template>
-	<view class="u-page content">
+	<view class="u-page">
 
-		<u-row customStyle="margin-bottom: 10px">
-			<u-col span="6">
-				<view class="demo-layout bg-purple-light"></view>
+		<u-row customStyle="margin-bottom: 10px" v-show="show">
+			<u-col span="12">
+				<u-navbar title="个人中心" :autoBack="true">
+				</u-navbar>
+				<u-swiper class="banner" :list="bannerList" @change="bannerChange" @click="click"></u-swiper>
 			</u-col>
-			<u-col span="6">
+			<u-col span="0">
 				<view class="demo-layout bg-purple"></view>
 			</u-col>
 		</u-row>
-		<u-swiper class="banner" :list="bannerList" @change="bannerChange" @click="click"></u-swiper>
+		<u-row customStyle="margin-bottom: 10px" v-show="show1">
+			<u-col span="12">
+				<view class="demo-layout bg-purple-light">1</view>
+			</u-col>
+			<u-col span="0">
+				<view class="demo-layout bg-purple">2</view>
+			</u-col>
+		</u-row>
+		<u-row customStyle="margin-bottom: 10px" v-show="show2">2</u-row>
+		<u-row customStyle="margin-bottom: 10px" v-show="show3">3</u-row>
 		<u-tabbar :value="v1" @change="tabChange">
-			<u-tabbar-item text="首页" icon="home" @click=""></u-tabbar-item>
-			<u-tabbar-item text="标书进度" icon="photo" @click=""></u-tabbar-item>
-			<u-tabbar-item text="到家福利" icon="photo" @click=""></u-tabbar-item>
-			<u-tabbar-item text="个人中心" icon="photo" @click=""></u-tabbar-item>
+			<u-tabbar-item text="首页" icon="home" name="main" @click=""></u-tabbar-item>
+			<u-tabbar-item text="标书进度" icon="photo" name="main1" @click=""></u-tabbar-item>
+			<u-tabbar-item text="到家福利" icon="photo" name="main2" @click=""></u-tabbar-item>
+			<u-tabbar-item text="个人中心" icon="photo" name="main3" @click=""></u-tabbar-item>
 		</u-tabbar>
 	</view>
 
@@ -29,7 +40,11 @@
 					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
 					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
 					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
-				]
+				],
+				show1: false,
+				show2: false,
+				show3: false,
+				show: true,
 			}
 		},
 		onLoad() {
@@ -37,10 +52,15 @@
 		},
 		methods: {
 			tabChange(tabIndex) {
-				console.log(tabIndex);
+				// 切换不同的屏幕 
+				this.show = tabIndex == "main";
+				this.show1 = tabIndex == "main1";
+				this.show2 = tabIndex == "main2";
+				this.show3 = tabIndex == "main3";
+				// console.log(tabIndex, this.show, this.show1, this.show2, this.show3);
 			},
 			bannerChange(i) {
-
+				// console.log('轮播',i);
 			}
 		}
 	}
