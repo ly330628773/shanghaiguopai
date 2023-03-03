@@ -1,42 +1,58 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
-		<u-action-sheet :list="list" v-model="show"></u-action-sheet>
+	<view class="u-page content">
+
+		<u-row customStyle="margin-bottom: 10px">
+			<u-col span="6">
+				<view class="demo-layout bg-purple-light"></view>
+			</u-col>
+			<u-col span="6">
+				<view class="demo-layout bg-purple"></view>
+			</u-col>
+		</u-row>
+		<u-swiper class="banner" :list="bannerList" @change="bannerChange" @click="click"></u-swiper>
+		<u-tabbar :value="v1" @change="tabChange">
+			<u-tabbar-item text="首页" icon="home" @click=""></u-tabbar-item>
+			<u-tabbar-item text="标书进度" icon="photo" @click=""></u-tabbar-item>
+			<u-tabbar-item text="到家福利" icon="photo" @click=""></u-tabbar-item>
+			<u-tabbar-item text="个人中心" icon="photo" @click=""></u-tabbar-item>
+		</u-tabbar>
 	</view>
+
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
-				title: 'Hello',
-				list: [{
-					text: '点赞',
-					color: 'blue',
-					fontSize: 28
-				}, {
-					text: '分享'
-				}, {
-					text: '评论'
-				}],
-				show: true
+				v1: 0,
+				bannerList: [
+					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
+					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
+					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
+				]
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
+			tabChange(tabIndex) {
+				console.log(tabIndex);
+			},
+			bannerChange(i) {
 
+			}
 		}
 	}
 </script>
 
 <style>
+	.banner {
+		height: 100px;
+	}
+
 	.content {
-		display: none;
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
