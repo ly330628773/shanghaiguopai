@@ -1,16 +1,28 @@
 <template>
 	<view class="u-page">
 
-		<u-row customStyle="margin-bottom: 10px" v-show="show">
+		<!-- 首页 -->
+		<u-row customStyle="margin-bottom: 0px" v-show="show">
+
 			<u-col span="12">
-				<u-navbar title="个人中心" :autoBack="true">
-				</u-navbar>
-				<u-swiper class="banner" :list="bannerList" @change="bannerChange" @click="click"></u-swiper>
+				<u-row style="margin-top: 44px;">
+					<u-navbar title="我是自定义的标题栏" :autoBack="false" leftIcon=""> </u-navbar>
+				</u-row>
+				<u-swiper style="height: auto;" class="banner" :list="bannerList" @change="bannerChange" @click="click">
+				</u-swiper>
+				<u-tabs :scrollable="false" :list="tabList"></u-tabs>
+				<u-grid :border="false" col="2">
+					<u-grid-item v-for="(listItem,listIndex) in mealList" :key="listIndex">
+						<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="listItem.name" :size="22"></u-icon>
+						<text class="grid-text">{{listItem.title}}</text>
+					</u-grid-item>
+				</u-grid>
+
+
 			</u-col>
-			<u-col span="0">
-				<view class="demo-layout bg-purple"></view>
-			</u-col>
+
 		</u-row>
+		<!--  标书进度 -->
 		<u-row customStyle="margin-bottom: 10px" v-show="show1">
 			<u-col span="12">
 				<view class="demo-layout bg-purple-light">1</view>
@@ -19,7 +31,9 @@
 				<view class="demo-layout bg-purple">2</view>
 			</u-col>
 		</u-row>
+		<!--  -->
 		<u-row customStyle="margin-bottom: 10px" v-show="show2">2</u-row>
+		<!--  -->
 		<u-row customStyle="margin-bottom: 10px" v-show="show3">3</u-row>
 		<u-tabbar :value="v1" @change="tabChange">
 			<u-tabbar-item text="首页" icon="home" name="main" @click=""></u-tabbar-item>
@@ -45,6 +59,38 @@
 				show2: false,
 				show3: false,
 				show: true,
+				tabList: [{
+					name: '选套餐',
+				}, {
+					name: '中标案例',
+				}, {
+					name: '选车务',
+				}, ],
+				mealList: [{
+						name: 'photo',
+						title: '图片'
+					},
+					{
+						name: 'lock',
+						title: '锁头'
+					},
+					{
+						name: 'photo',
+						title: '图片'
+					},
+					{
+						name: 'lock',
+						title: '锁头'
+					},
+					{
+						name: 'photo',
+						title: '图片'
+					},
+					{
+						name: 'lock',
+						title: '锁头'
+					},
+				]
 			}
 		},
 		onLoad() {
