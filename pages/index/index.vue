@@ -1,6 +1,6 @@
 <template>
 	<view class="u-page">
-
+		<u-toast ref="uToast"></u-toast>
 		<!-- 首页 -->
 		<u-row customStyle="margin-bottom: 0px" v-show="show">
 
@@ -17,24 +17,22 @@
 						<text class="grid-text">{{listItem.title}}</text>
 					</u-grid-item>
 				</u-grid>
-
-
+				<u-button text="接口连通性测试" :plain="true" @click="testhost(this)"></u-button>
 			</u-col>
 
 		</u-row>
 		<!--  标书进度 -->
 		<u-row customStyle="margin-bottom: 10px" v-show="show1">
-			<u-col span="12">
-				<view class="demo-layout bg-purple-light">1</view>
-			</u-col>
-			<u-col span="0">
-				<view class="demo-layout bg-purple">2</view>
-			</u-col>
+			<biaoshu></biaoshu>
 		</u-row>
 		<!--  -->
-		<u-row customStyle="margin-bottom: 10px" v-show="show2">2</u-row>
+		<u-row customStyle="margin-bottom: 10px" v-show="show2">
+			<daojia></daojia>
+		</u-row>
 		<!--  -->
-		<u-row customStyle="margin-bottom: 10px" v-show="show3">3</u-row>
+		<u-row customStyle="margin-bottom: 10px" v-show="show3">
+			<wode></wode>
+		</u-row>
 		<u-tabbar :value="v1" @change="tabChange">
 			<u-tabbar-item text="首页" icon="home" name="main" @click=""></u-tabbar-item>
 			<u-tabbar-item text="标书进度" icon="photo" name="main1" @click=""></u-tabbar-item>
@@ -46,7 +44,15 @@
 </template>
 
 <script>
+	import biaoshu from '@/pages/index/biaoshu.vue';
+	import daojia from '@/pages/index/daojia.vue';
+	import wode from '@/pages/index/wode.vue';
 	export default {
+		components: {
+			biaoshu,
+			daojia,
+			wode
+		},
 		data() {
 			return {
 				v1: 0,
@@ -107,6 +113,22 @@
 			},
 			bannerChange(i) {
 				// console.log('轮播',i);
+			},
+			testhost(event) {
+				var that = this;
+				console.warn("", event);
+				var requestTask = uni.request({
+					url: 'https://pai.52car.xyz/api/index', //仅为示例，并非真实接口地址。
+					success: (result) => {
+						console.log(result)
+						that.$refs.uToast.show({
+							type: 'success',
+							message: result.data.msg,
+							iconUrl: 'https://cdn.uviewui.com/uview/demo/toast/success.png',
+							complete() {}
+						})
+					}
+				});
 			}
 		}
 	}
