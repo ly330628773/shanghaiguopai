@@ -2,12 +2,13 @@
 	<view class="u-page">
 		<u-toast ref="uToast"></u-toast>
 		<!-- 首页 -->
-		<u-row customStyle="margin-bottom: 0px" v-show="show">
+		<u-row customStyle="margin-bottom: 0px" v-if="show">
 
 			<u-col span="12">
-				<u-row style="margin-top: 44px;">
-					<u-navbar title="我是自定义的标题栏" :autoBack="false" leftIcon=""> </u-navbar>
-				</u-row>
+				<view class="status_bar">
+					<!-- 这里是状态栏 -->
+					<!-- <u-navbar title="我是自定义的标题栏" leftIcon=""> </u-navbar> -->
+				</view>
 				<u-swiper style="height: auto;" class="banner" :list="bannerList" @change="bannerChange" @click="click">
 				</u-swiper>
 				<u-tabs :scrollable="false" :list="tabList"></u-tabs>
@@ -22,15 +23,15 @@
 
 		</u-row>
 		<!--  标书进度 -->
-		<u-row customStyle="margin-bottom: 10px" v-show="show1">
+		<u-row customStyle="margin-bottom: 10px" v-if="show1">
 			<biaoshu></biaoshu>
 		</u-row>
 		<!--  -->
-		<u-row customStyle="margin-bottom: 10px" v-show="show2">
+		<u-row customStyle="margin-bottom: 10px" v-if="show2">
 			<daojia></daojia>
 		</u-row>
 		<!--  -->
-		<u-row customStyle="margin-bottom: 10px" v-show="show3">
+		<u-row customStyle="margin-bottom: 10px" v-if="show3">
 			<wode></wode>
 		</u-row>
 		<u-tabbar :value="v1" @change="tabChange">
@@ -47,6 +48,7 @@
 	import biaoshu from '@/pages/index/biaoshu.vue';
 	import daojia from '@/pages/index/daojia.vue';
 	import wode from '@/pages/index/wode.vue';
+	import request from '@/utils/request.js'
 	export default {
 		components: {
 			biaoshu,
@@ -55,6 +57,7 @@
 		},
 		data() {
 			return {
+				iStatusBarHeight: 0,
 				v1: 0,
 				bannerList: [
 					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
@@ -100,7 +103,7 @@
 			}
 		},
 		onLoad() {
-
+			this.iStatusBarHeight = uni.getSystemInfoSync().statusBarHeight;
 		},
 		methods: {
 			tabChange(tabIndex) {
@@ -109,15 +112,16 @@
 				this.show1 = tabIndex == "main1";
 				this.show2 = tabIndex == "main2";
 				this.show3 = tabIndex == "main3";
-				// console.log(tabIndex, this.show, this.show1, this.show2, this.show3);
+				console.log(tabIndex, this.show, this.show1, this.show2, this.show3);
 			},
 			bannerChange(i) {
 				// console.log('轮播',i);
 			},
 			testhost(event) {
 				var that = this;
-				console.warn("", event);
-				var requestTask = uni.request({
+				console.warn("", request);
+				request.req();
+				/* var requestTask = uni.request({
 					url: 'https://pai.52car.xyz/api/index', //仅为示例，并非真实接口地址。
 					success: (result) => {
 						console.log(result)
@@ -128,15 +132,21 @@
 							complete() {}
 						})
 					}
-				});
+				}); */
 			}
 		}
 	}
 </script>
 
 <style>
+	.status_bar {
+		height: 120rpx; //2 * var(--status-bar-height)
+		width: 100%;
+	}
+
 	.banner {
-		height: 100px;
+		height: 100rpx;
+		margin-top: 50rpx;
 	}
 
 	.content {
