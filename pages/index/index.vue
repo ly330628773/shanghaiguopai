@@ -119,8 +119,8 @@
 			},
 			testhost(event) {
 				var that = this;
-				console.warn("", request);
-				request.req();
+				const a = request.request;
+				// console.log(a);
 				/* var requestTask = uni.request({
 					url: 'https://pai.52car.xyz/api/index', //仅为示例，并非真实接口地址。
 					success: (result) => {
