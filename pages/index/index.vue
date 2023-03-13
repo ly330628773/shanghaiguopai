@@ -34,7 +34,7 @@
 		<u-row customStyle="margin-bottom: 10px" v-if="show3">
 			<wode></wode>
 		</u-row>
-		<u-tabbar :value="v1" @change="tabChange">
+		<u-tabbar :value="v1" activeColor="#d81e06" :border="false" @change="tabChange">
 			<u-tabbar-item text="首页" icon="home" name="main" @click=""></u-tabbar-item>
 			<u-tabbar-item text="标书进度" icon="photo" name="main1" @click=""></u-tabbar-item>
 			<u-tabbar-item text="到家福利" icon="photo" name="main2" @click=""></u-tabbar-item>
